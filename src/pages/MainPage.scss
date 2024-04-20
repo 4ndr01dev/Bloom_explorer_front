@@ -1,0 +1,80 @@
+@import '/src/index.scss';
+
+.main_container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 5rem;
+
+    .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main_section {
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+
+        .main_page_container {
+            padding: 1.5rem;
+            flex: 2 1 10rem;
+
+            .main_page_section {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+
+                .main_page_title {
+                    padding: 0.5rem 1rem;
+                    justify-content: space-between;
+                    align-items: center;
+                    display: flex;
+                    flex-direction: row;
+                    flex: 1 1 10%;
+                }
+
+                .main_page_article {
+                    padding: 1rem 2rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    flex: 1 1 80%
+                }
+            }
+        }
+
+        .main_page_aside {
+            padding: 1.5rem;
+            flex: 1 1 10rem;
+
+            .organization_section {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+
+                .organization_title {
+                    padding: 0.5rem 1rem;
+                    justify-content: space-between;
+                    align-items: center;
+                    display: flex;
+                    flex-direction: row;
+                    flex: 1 1 10%;
+                }
+
+                .organization_table {
+                    overflow: auto;
+                    max-height: 45rem;
+                    padding: 1rem 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    flex: 1 1 80%
+
+                }
+            }
+        }
+    }
+}

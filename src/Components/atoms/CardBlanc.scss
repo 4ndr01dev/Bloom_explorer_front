@@ -1,0 +1,11 @@
+@import '/src/index.scss';
+@import '/src/styles/mixins/mixins.scss';
+
+.Card {
+    background: $secondary-background-color;
+        color: $font-color;
+    height: 100%;
+    width: 100%;
+    border-radius: 7px;
+    
+}
