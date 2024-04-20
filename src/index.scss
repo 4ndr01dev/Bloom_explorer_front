@@ -1,0 +1,63 @@
+$background-color: #121212;
+$secondary-background-color: #232224;
+$terciar-background-color: #1a1a1b;
+$font-color: #FFFFFF;
+$font-secondary-color: #B0B0B0;
+$background-secondary-color: #f6f6f6;
+$primary-color: #42CBEC;
+$secondary-color: #8B3DCB;
+$header-font-family: 'Merriweather Sans', sans-serif;
+$gradient-color : linear-gradient(135deg, $secondary-color 0%, $primary-color 100%);
+$background-darken-secondary-color : darken($color: $background-secondary-color, $amount: 3%);
+$background-lighten-primary-color : lighten($color: $primary-color, $amount: 25%);
+$background-lighten-secondary-color : lighten($color: $secondary-color, $amount: 30%);
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  color: $font-color;
+  background-color: $terciar-background-color;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  h1 {
+    font-family: $header-font-family;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    /* Ancho de la barra de desplazamiento */
+  }
+
+  /* Estilo para la barra de desplazamiento (el riel) */
+  ::-webkit-scrollbar-track {
+    background: $secondary-background-color;
+    /* Color del fondo del riel */
+    // Agrega aquí más estilos si es necesario
+  }
+
+  /* Estilo para el control de desplazamiento (la parte que se mueve) */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Color del control de desplazamiento */
+    border-radius: 5px;
+    /* Bordes redondeados para el control de desplazamiento */
+
+    &:hover {
+      background: #555;
+      /* Color del control de desplazamiento al pasar el ratón */
+    }
+  }
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
