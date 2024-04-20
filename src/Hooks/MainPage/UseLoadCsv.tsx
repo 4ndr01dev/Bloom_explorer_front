@@ -3,7 +3,7 @@ import Papa from 'papaparse'
 import Organization from '../../types/Organization'
 
 const UseLoadCsv = (url: string) => {
-  const [data, setData] = useState<Organization[]>([])
+  const [csvData, setData] = useState<Organization[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
   useEffect(() => {
@@ -34,7 +34,7 @@ const UseLoadCsv = (url: string) => {
     fetchData()
   }, [url])
 
-  return { data, loading, error }
+  return { csvData, loading, error }
 }
 
 export default UseLoadCsv

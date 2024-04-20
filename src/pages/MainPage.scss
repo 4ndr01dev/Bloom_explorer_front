@@ -20,7 +20,7 @@
 
         .main_page_container {
             padding: 1.5rem;
-            flex: 2 1 10rem;
+            flex: 5 1 10rem;
 
             .main_page_section {
                 display: flex;
@@ -36,12 +36,24 @@
                     flex: 1 1 10%;
                 }
 
-                .main_page_article {
-                    padding: 1rem 2rem;
+                .organization_plot {
+                    // overflow: auto;
+                    max-height: 25rem;
+                    padding: 1rem 1rem;
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-between;
-                    flex: 1 1 80%
+                    justify-content: center;
+                    flex: 1 1 40%
+                }
+
+                .organization_table {
+                    overflow: auto;
+                    max-height: 15rem;
+                    padding: 1rem 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    flex: 1 1 30%
                 }
             }
         }
@@ -49,7 +61,7 @@
         .main_page_aside {
             padding: 1.5rem;
             flex: 1 1 10rem;
-
+            
             .organization_section {
                 display: flex;
                 flex-direction: column;
@@ -64,15 +76,24 @@
                     flex: 1 1 10%;
                 }
 
+                .main_page_article {
+                    padding: 1rem 2rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    flex: 1 1 30%
+                }
+
                 .organization_table {
-                    overflow: auto;
-                    max-height: 45rem;
+                    // width: 100%;
+                    max-width: 22rem;
+                    // overflow: auto;
+                    // max-height: 15rem;
                     padding: 1rem 1rem;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    flex: 1 1 80%
-
+                    flex: 1 1 60%
                 }
             }
         }
