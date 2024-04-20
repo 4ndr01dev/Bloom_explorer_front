@@ -1,0 +1,43 @@
+@import '/src/index.scss';
+
+.table-responsive {
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+table {
+    position: relative;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+
+    thead {
+        tr {
+            background-color: $terciar-background-color ;
+            border-bottom: 1px solid darken($secondary-color, 20%);
+
+            th {
+                background-color: $terciar-background-color ;
+                position: sticky;
+                top: 0;
+                padding: 15px;
+                font-weight: bold;
+            }
+        }
+
+    }
+
+    tbody {
+        tr {
+            background-color: darken($secondary-background-color, 7%);
+
+        }
+
+        td {
+            min-height: 3.5rem;
+            height: 2.5rem;
+            padding: 0.5rem;
+            border-bottom: 0.5px solid lighten($terciar-background-color, 3%);
+        }
+    }
+}

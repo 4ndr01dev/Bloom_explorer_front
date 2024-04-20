@@ -1,0 +1,27 @@
+.selector-container {
+    padding: 0.5rem;
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background-color: #f9f9f9;
+
+    select.custom-select {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.4rem;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+        }
+
+        option {
+            padding: 0.5rem;
+        }
+    }
+}
