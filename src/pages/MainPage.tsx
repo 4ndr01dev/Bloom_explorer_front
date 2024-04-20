@@ -3,7 +3,7 @@ import './MainPage.scss'
 import CardBlanc from '../components/atoms/CardBlanc'
 import AASelector from '../components/atoms/AASelector'
 import Table from '../components/atoms/Table'
-import BarChart from '../components/molecules/BarChart'
+import LineChart from '../components/molecules/LineChart'
 
 const EncodeDecode = () => {
   interface DataEntry {
@@ -13,37 +13,40 @@ const EncodeDecode = () => {
     value: number
     ingestion_time: string
   }
-  const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [
-      {
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 1,
-      },
-    ],
+  interface ZoneInfo {
+    organization: string
+    zone_id: number
+    zone: string
+    polygon_decoded: string
   }
-  const options = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' },
+  const zones: ZoneInfo[] = [
+    {
+      organization: 'gsinima',
+      zone_id: 25,
+      zone: 'caldera',
+      polygon_decoded:
+        '-70.87416271129088,-27.014335684429216;-70.83452128203115,-27.030838768713313;-70.8',
+    },
+    {
+      organization: 'adasa',
+      zone_id: 27,
+      zone: 'antofagasta',
+      polygon_decoded:
+        '-70.42940139770508,-23.534481206739827;-70.43146133422852,-23.541563231866057;-70.42914390563965,-',
+    },
   ]
+  const zonesDisplay = zones.map((zone) => {
+    return { organization: zone.organization, zone: zone.zone }
+  })
+
+  console.log(zonesDisplay)
+  const zoneOption = [
+    ...zones.map((zone, i) => {
+      return { value: i, label: zone.organization }
+    }),
+    { value: -1, label: 'All zones' },
+  ]
+
   const dataEntries: DataEntry[] = [
     {
       timestamp: '2024-04-13 12:00:00.000000 UTC',
@@ -124,6 +127,19 @@ const EncodeDecode = () => {
     },
     // Puedes añadir más entradas aquí de la misma forma
   ]
+  const labels = dataEntries.map((entry) => entry.timestamp)
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Value Over Time',
+        data: dataEntries.map((entry) => entry.value),
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1,
+      },
+    ],
+  }
   return (
     <>
       <main className="main_container">
@@ -137,7 +153,7 @@ const EncodeDecode = () => {
                   <h3>Data display</h3>
                 </header>
                 <article className="organization_plot">
-                  <BarChart data={data} />
+                  <LineChart data={data} />
                 </article>
                 <article className="organization_table">
                   <Table data={dataEntries} />
@@ -151,10 +167,13 @@ const EncodeDecode = () => {
                 <header className="organization_title">
                   <h3>Organization selection</h3>
                 </header>
+                <article className="organization_table">
+                  <Table data={zonesDisplay} />
+                </article>
                 <article className="main_page_article">
                   <AASelector
-                    options={options}
-                    defaultValue="Select a organization"
+                    options={zoneOption}
+                    defaultValue={-1}
                   />
                 </article>
               </div>
