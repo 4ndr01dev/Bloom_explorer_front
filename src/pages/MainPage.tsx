@@ -1,8 +1,13 @@
 import React from 'react'
 import './MainPage.scss'
 import CardBlanc from '../components/atoms/CardBlanc'
+import UseLoadCsv from '../Hooks/MainPage/UseLoadCsv'
 
 const EncodeDecode = () => {
+  const { data, loading, error } = UseLoadCsv(
+    './organization_and_zones_dataset.csv',
+  )
+  console.log({ data, loading, error })
   return (
     <>
       <main className="main_container">
