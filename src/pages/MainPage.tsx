@@ -43,7 +43,7 @@ const EncodeDecode = () => {
     { value: -1, label: 'All zones' },
   ]
 
-  const labels = timeSeriesData.map((entry) => entry.timestamp)
+  const labels = timeSeriesData.map((entry) => entry.variable)
   const data = {
     labels,
     datasets: [

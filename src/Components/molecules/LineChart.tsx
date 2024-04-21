@@ -1,6 +1,6 @@
 import React from 'react'
 import { Line } from 'react-chartjs-2'
-import type { ChartData } from 'chart.js'
+import type { ChartData, ChartOptions } from 'chart.js'
 
 import {
   Chart as ChartJS,
@@ -12,6 +12,7 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js'
+import 'chartjs-plugin-zoom'
 
 ChartJS.register(
   CategoryScale,
@@ -25,10 +26,47 @@ ChartJS.register(
 
 interface BarChartProps {
   data: ChartData<'line'>
+  maxTicksLimit?: number
 }
 
-const LineChart: React.FC<BarChartProps> = ({ data }) => {
-  return <Line data={data} />
+const LineChart: React.FC<BarChartProps> = ({ data, maxTicksLimit }) => {
+  console.log({ maxTicksLimit })
+  const options: ChartOptions<'line'> = {
+    scales: {
+      x: {
+        ticks: {
+          // maxRotation: 90,
+          autoSkip: true,
+          // maxTicksLimit: 50,
+        },
+      },
+    },
+    plugins: {
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+      },
+      legend: {
+        display: true,
+      },
+      zoom: {
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true,
+          },
+          mode: 'x',
+        },
+        pan: {
+          enabled: true,
+          mode: 'x',
+        },
+      },
+    },
+  }
+  return <Line data={data} options={options} />
 }
 
 export default LineChart
