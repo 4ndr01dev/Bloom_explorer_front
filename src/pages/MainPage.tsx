@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './MainPage.scss'
 
 import UseLoadCsv from '../Hooks/MainPage/UseLoadCsv'
@@ -8,18 +8,29 @@ import Table from '../Components/atoms/Table'
 import AASelector from '../Components/atoms/AASelector'
 
 const EncodeDecode = () => {
+  const [organizationIndexSelected, setOrganizationIndexSelected] = useState(-1)
+  const [zonesUrl] = useState('./organization_and_zones_dataset.csv')
+  const [timeSeriesUrl] = useState('./timeseries_dataset.csv')
+
   const {
     csvData: zonesData,
     loading: zonesLoading,
     error,
-  } = UseLoadCsv('./organization_and_zones_dataset.csv')
+  } = UseLoadCsv(zonesUrl)
+
   const {
     csvData: timeSeriesData,
     loading: timeSeriesLoading,
     error: timeSeriesError,
-  } = UseLoadCsv('./timeseries_dataset.csv')
+  } = UseLoadCsv(timeSeriesUrl)
+
   console.log({ zonesData, zonesLoading, error })
   console.log({ timeSeriesData, timeSeriesLoading, timeSeriesError })
+
+  const handleOrganizationSelection = (index: number) => {
+    console.log(index)
+    setOrganizationIndexSelected(index)
+  }
 
   const zonesDisplay = zonesData?.map((zone) => {
     return { organization: zone.organization, zone: zone.zone }
@@ -54,8 +65,10 @@ const EncodeDecode = () => {
             <CardBlanc>
               <div className="main_page_section">
                 <header className="main_page_title">
-                  {' '}
                   <h3>Data display</h3>
+                  {zoneOption[organizationIndexSelected]
+                    ? zoneOption[organizationIndexSelected].label
+                    : 'All zones'}
                 </header>
                 <article className="organization_plot">
                   {timeSeriesLoading ? '' : <LineChart data={data} />}
@@ -79,7 +92,11 @@ const EncodeDecode = () => {
                   {zonesLoading ? (
                     ''
                   ) : (
-                    <AASelector options={zoneOption} defaultValue={-1} />
+                    <AASelector
+                      options={zoneOption}
+                      defaultValue={organizationIndexSelected}
+                      onChange={handleOrganizationSelection}
+                    />
                   )}
                 </article>
               </div>
