@@ -20,7 +20,7 @@
 
         .main_page_container {
             padding: 1.5rem;
-            flex: 5 1 10rem;
+            flex: 2 1 10rem;
 
             .main_page_section {
                 display: flex;
@@ -33,35 +33,34 @@
                     align-items: center;
                     display: flex;
                     flex-direction: row;
-                    flex: 1 1 4%;
-                    max-height: 5rem;
+                    flex: 1 1 10%;
+                    // max-height: 5rem;
                 }
 
-                .organization_plot {
-                    max-height: 32rem;
+                .organization_tables {
+                    align-items: center;
+                    flex-direction: column;
                     padding: 1rem 1rem;
                     display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    flex: 1 1 40%
-                }
-
-                .organization_table {
-                    overflow: auto;
-                    max-height: 15rem;
-                    padding: 1rem 1rem;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    flex: 1 1 30%
+                    flex: 1 1 85%;
+                    
+                    .organization_table {
+                        max-height: 20rem;
+                        width: 100%;
+                        overflow: auto;
+                        padding: 1rem 1rem;
+                        display: flex;
+                        justify-content: center;
+                        flex: 1 1 85%;
+                    }
                 }
             }
         }
 
         .main_page_aside {
             padding: 1.5rem;
-            flex: 1 1 10rem;
-            
+            flex: 1 1 12rem;
+
             .organization_section {
                 display: flex;
                 flex-direction: column;
@@ -76,24 +75,12 @@
                     flex: 1 1 10%;
                 }
 
-                .main_page_article {
-                    padding: 1rem 2rem;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    flex: 1 1 30%
-                }
 
-                .organization_table {
-                    // width: 100%;
-                    max-width: 22rem;
-                    // overflow: auto;
-                    // max-height: 15rem;
+                .organization_plot {
+                    align-items: center;
                     padding: 1rem 1rem;
                     display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    flex: 1 1 60%
+                    flex: 1 1 85%;
                 }
             }
         }

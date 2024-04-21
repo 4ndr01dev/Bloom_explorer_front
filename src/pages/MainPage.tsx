@@ -32,10 +32,6 @@ const EncodeDecode = () => {
     setOrganizationIndexSelected(index)
   }
 
-  const zonesDisplay = zonesData?.map((zone) => {
-    return { organization: zone.organization, zone: zone.zone }
-  })
-
   const zoneOption = [
     ...zonesData.map((zone, i) => {
       return { value: i, label: zone.organization }
@@ -59,22 +55,38 @@ const EncodeDecode = () => {
   return (
     <>
       <main className="main_container">
-        <header className="title">{/* <h1> Data Display </h1> */}</header>
+        <header className="title">
+          {' '}
+          <CardBlanc>
+            {zonesLoading ? (
+              ''
+            ) : (
+              <AASelector
+                options={zoneOption}
+                defaultValue={organizationIndexSelected}
+                onChange={handleOrganizationSelection}
+              />
+            )}
+          </CardBlanc>
+        </header>
         <section className="main_section">
           <article className="main_page_container">
             <CardBlanc>
               <div className="main_page_section">
                 <header className="main_page_title">
                   <h3>Data display</h3>
-                  {zoneOption[organizationIndexSelected]
+                  {zoneOption[organizationIndexSelected] && !zonesLoading
                     ? zoneOption[organizationIndexSelected].label
                     : 'All zones'}
                 </header>
-                <article className="organization_plot">
-                  {timeSeriesLoading ? '' : <LineChart data={data} />}
-                </article>
-                <article className="organization_table">
-                  {timeSeriesLoading ? '' : <Table data={timeSeriesData} />}
+                <article className="organization_tables">
+
+                  <article className="organization_table">
+                    {timeSeriesLoading ? '' : <Table data={timeSeriesData} />}{' '}
+                  </article>
+                  <article className="organization_table">
+                    {timeSeriesLoading ? '' : <Table data={timeSeriesData} />}
+                  </article>
                 </article>
               </div>
             </CardBlanc>
@@ -85,19 +97,8 @@ const EncodeDecode = () => {
                 <header className="organization_title">
                   <h3>Organization selection</h3>
                 </header>
-                <article className="organization_table">
-                  {zonesLoading ? '' : <Table data={zonesDisplay} />}
-                </article>
-                <article className="main_page_article">
-                  {zonesLoading ? (
-                    ''
-                  ) : (
-                    <AASelector
-                      options={zoneOption}
-                      defaultValue={organizationIndexSelected}
-                      onChange={handleOrganizationSelection}
-                    />
-                  )}
+                <article className="organization_plot">
+                  {timeSeriesLoading ? '' : <LineChart data={data} />}
                 </article>
               </div>
             </CardBlanc>
