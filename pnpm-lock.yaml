@@ -47,6 +47,12 @@ dependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  react-icon:
+    specifier: ^1.0.0
+    version: 1.0.0(babel-runtime@5.8.38)(react@18.2.0)
+  react-icons:
+    specifier: ^5.1.0
+    version: 5.1.0(react@18.2.0)
   react-scripts:
     specifier: 5.0.1
     version: 5.0.1(@babel/plugin-syntax-flow@7.24.1)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.57.0)(node-sass@7.0.3)(react@18.2.0)(typescript@4.9.5)
@@ -3698,6 +3704,12 @@ packages:
       - supports-color
     dev: false
 
+  /babel-runtime@5.8.38:
+    resolution: {integrity: sha512-KpgoA8VE/pMmNCrnEeeXqFG24TIH11Z3ZaimIhJWsin8EbfZy3WzFKUTIan10ZIDgRVvi9EkLbruJElJC9dRlg==}
+    dependencies:
+      core-js: 1.2.7
+    dev: false
+
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
@@ -4192,6 +4204,11 @@ packages:
   /core-js-pure@3.37.0:
     resolution: {integrity: sha512-d3BrpyFr5eD4KcbRvQ3FTUx/KWmaDesr7+a3+1+P46IUnNoEt+oiLijPINZMEon7w9oGkIINWxrBAU9DEciwFQ==}
     requiresBuild: true
+    dev: false
+
+  /core-js@1.2.7:
+    resolution: {integrity: sha512-ZiPp9pZlgxpWRu0M+YWbm6+aQ84XEfH1JRXvfOc/fILWI0VKhLC2LX13X1NYq4fULzLMq7Hfh43CSo2/aIaUPA==}
+    deprecated: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.
     dev: false
 
   /core-js@3.37.0:
@@ -9444,6 +9461,24 @@ packages:
 
   /react-error-overlay@6.0.11:
     resolution: {integrity: sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==}
+    dev: false
+
+  /react-icon@1.0.0(babel-runtime@5.8.38)(react@18.2.0):
+    resolution: {integrity: sha512-VzSlpBHnLanVw79mOxyq98hWDi6DlxK9qPiZ1bAK6bLurMBCaxO/jjyYUrRx9+JGLc/NbnwOmyE/W5Qglbb2QA==}
+    peerDependencies:
+      babel-runtime: ^5.3.3
+      react: '>=0.12.0'
+    dependencies:
+      babel-runtime: 5.8.38
+      react: 18.2.0
+    dev: false
+
+  /react-icons@5.1.0(react@18.2.0):
+    resolution: {integrity: sha512-D3zug1270S4hbSlIRJ0CUS97QE1yNNKDjzQe3HqY0aefp2CBn9VgzgES27sRR2gOvFK+0CNx/BW0ggOESp6fqQ==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is@16.13.1:

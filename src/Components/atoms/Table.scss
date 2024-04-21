@@ -13,11 +13,11 @@ table {
 
     thead {
         tr {
-            background-color: $terciar-background-color ;
-            border-bottom: 1px solid darken($secondary-color, 20%);
+            background-color: darken($secondary-background-color, 7%); ;
+            border-bottom: 1px solid darken($secondary-color, 5%);
 
             th {
-                background-color: $terciar-background-color ;
+                background-color: darken($secondary-background-color, 8%);;
                 position: sticky;
                 top: 0;
                 padding: 15px;
@@ -29,7 +29,7 @@ table {
 
     tbody {
         tr {
-            background-color: darken($secondary-background-color, 7%);
+            background-color: darken($secondary-background-color, 4%);
 
         }
 

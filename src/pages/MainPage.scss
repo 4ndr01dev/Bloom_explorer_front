@@ -6,26 +6,35 @@
     width: 100vw;
     height: 100vh;
     padding-top: 5rem;
+    justify-content: center;
+    align-items: center;
 
-    .title {
+    .main_header {
+        width: 95%;
+        height: 7%;
+        padding: 0rem 1.5rem;
         display: flex;
-        justify-content: center;
-        align-items: center;
+
     }
 
     .main_section {
-        height: 100%;
+        padding: 0rem 0.5rem;
+        width: 95%;
+        height: 93%;
         display: flex;
         flex-wrap: wrap;
+        gap: 1rem;
 
         .main_page_container {
-            padding: 1.5rem;
+
+            padding: 1rem 0rem;
             flex: 2 1 10rem;
 
             .main_page_section {
                 display: flex;
                 flex-direction: column;
                 height: 100%;
+                width: 100%;
 
                 .main_page_title {
                     padding: 0.5rem 1rem;
@@ -33,32 +42,39 @@
                     align-items: center;
                     display: flex;
                     flex-direction: row;
-                    flex: 1 1 10%;
-                    // max-height: 5rem;
+                    flex: 1 1 5%;
+                }
+
+                .description {
+                    display: flex;
+                    padding: 0.5rem 1rem;
+                    flex: 1 1 5%;
                 }
 
                 .organization_tables {
+                    display: flex;
+                    justify-content: center;
                     align-items: center;
                     flex-direction: column;
-                    padding: 1rem 1rem;
+                    padding: 1rem 1.5rem;
                     display: flex;
                     flex: 1 1 85%;
-                    
+
                     .organization_table {
-                        max-height: 20rem;
-                        width: 100%;
-                        overflow: auto;
-                        padding: 1rem 1rem;
                         display: flex;
+                        overflow: auto;
+                        max-height: 16rem;
+                        width: 100%;
+                        padding: 1rem 1rem;
                         justify-content: center;
-                        flex: 1 1 85%;
+                        flex: 1 1;
                     }
                 }
             }
         }
 
         .main_page_aside {
-            padding: 1.5rem;
+            padding: 1rem 0rem;
             flex: 1 1 12rem;
 
             .organization_section {
@@ -66,13 +82,19 @@
                 flex-direction: column;
                 height: 100%;
 
+                .description {
+                    display: flex;
+                    padding: 0.5rem 1rem;
+                    flex: 1 1 10%;
+                }
+
                 .organization_title {
                     padding: 0.5rem 1rem;
                     justify-content: space-between;
                     align-items: center;
                     display: flex;
                     flex-direction: row;
-                    flex: 1 1 10%;
+                    flex: 1 1 5%;
                 }
 
 

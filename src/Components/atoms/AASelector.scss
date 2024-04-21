@@ -1,23 +1,28 @@
+@import '/src/index.scss';
+
 .selector-container {
     padding: 0.5rem;
     margin: 1rem 0;
-    border: 1px solid #ccc;
+
     border-radius: 0.5rem;
-    background-color: #f9f9f9;
+    background: $secondary-background-color;
+    color: $font-color;
+    width: 100%;
 
     select.custom-select {
         width: 100%;
-        padding: 0.5rem 1rem;
+        // padding: 0.5rem 1rem;
         border: none;
         border-radius: 0.4rem;
-        background-color: white;
+        background: $secondary-background-color;
+        color: $font-color;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         cursor: pointer;
 
-        &:focus {
+        &:hover {
             outline: none;
-            border-color: #0056b3;
-            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+            border-color: $secondary-color;
+            box-shadow: 0 0 0 0.2rem $secondary-color;
         }
 
         option {
