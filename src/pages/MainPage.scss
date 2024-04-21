@@ -33,12 +33,12 @@
                     align-items: center;
                     display: flex;
                     flex-direction: row;
-                    flex: 1 1 10%;
+                    flex: 1 1 4%;
+                    max-height: 5rem;
                 }
 
                 .organization_plot {
-                    // overflow: auto;
-                    max-height: 25rem;
+                    max-height: 35rem;
                     padding: 1rem 1rem;
                     display: flex;
                     flex-direction: column;
