@@ -45,7 +45,13 @@ const MainPage = () => {
     groupedError,
   })
   const adasaCHSeries = groupedData?.organizations.adasa.values['CHL-01']
-  console.log(adasaCHSeries)
+  const auxSeriesFirstValue = isAdasa
+    ? groupedData?.organizations.adasa.values['CHL-01']
+    : groupedData?.organizations.gsinima.values['CHL-01']
+  const auxSeriesSecondValue = isAdasa
+    ? groupedData?.organizations.adasa.values['CHL-01']
+    : groupedData?.organizations.gsinima.values['SPM-01']
+
   const {
     csvData: timeSeriesData,
     loading: timeSeriesLoading,
@@ -82,7 +88,7 @@ const MainPage = () => {
                 (entry) => entry.value,
               ) || [],
             fill: false,
-            borderColor: 'rgb(218, 238, 255)',
+            borderColor: 'rgb(251, 115, 163)',
             tension: 0.1,
           },
           {
@@ -112,7 +118,7 @@ const MainPage = () => {
                 (entry) => entry.value,
               ) || [],
             fill: false,
-            borderColor: 'rgb(251, 115, 163)',
+            borderColor: 'rgb(248,14,98)',
             tension: 0.1,
           },
         ],
@@ -174,18 +180,18 @@ const MainPage = () => {
                         ''
                       )}
                       <article className="organization_table">
-                        {timeSeriesLoading ? (
-                          ''
+                        {auxSeriesFirstValue ? (
+                          <Table data={auxSeriesFirstValue} />
                         ) : (
-                          <Table data={timeSeriesData} />
+                          ''
                         )}{' '}
                       </article>
                       <article className="organization_table">
-                        {timeSeriesLoading ? (
-                          ''
+                        {auxSeriesSecondValue ? (
+                          <Table data={auxSeriesSecondValue} />
                         ) : (
-                          <Table data={timeSeriesData} />
-                        )}
+                          ''
+                        )}{' '}
                       </article>
                     </>
                   ) : (
@@ -213,7 +219,20 @@ const MainPage = () => {
                 </section>
                 <article className="organization_plot">
                   {organizationIndexSelected != -1 ? (
-                    <>{plotData ? <LineChart data={plotData} /> : ''}</>
+                    <>
+                      {plotData ? (
+                        <>
+                          <Banner
+                            type="info"
+                            message="Zoom out with scroll to watch the plot details."
+                          />
+
+                          <LineChart data={plotData} />
+                        </>
+                      ) : (
+                        ''
+                      )}
+                    </>
                   ) : (
                     <Banner
                       type="info"
