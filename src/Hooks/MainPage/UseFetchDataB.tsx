@@ -8,6 +8,9 @@ const UseFetchDataB = <T,>(uri: string, organizationType: string) => {
 
   const fetchData = useCallback(async () => {
     console.log('en el fetch Data B')
+    console.log('single organization ---> fetch  ', organizationType)
+    console.log(organizationType)
+    console.log(uri)
     if (!uri) return
     setLoading(true)
     try {
@@ -16,25 +19,24 @@ const UseFetchDataB = <T,>(uri: string, organizationType: string) => {
       }
       const dataFromService = await fetchService(
         uri,
-        organizationType? queryParams: {},
+        organizationType ? queryParams : {},
         { method: 'GET' },
       )
       setData(dataFromService)
       setLoading(false)
-      
     } catch (err) {
       if (err instanceof Error) {
         setError(err)
       }
       setLoading(false)
     }
-  }, [uri])
+  }, [uri, organizationType])
   useEffect(() => {
     if (!uri) return
     console.log(uri)
     fetchData()
-  }, [uri])
-
+  }, [uri, organizationType])
+  console.log(data)
   return { data, loading, error }
 }
 

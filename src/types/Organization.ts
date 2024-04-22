@@ -2,15 +2,15 @@ export interface SeriesGrouped {
   organizations: Organizations;
 }
 export interface Organizations {
-  adasa: Values;
-  gsinima: Values;
+  adasa?: Values;
+  gsinima?: Values;
 }
 export interface Values {
   values: Series;
 }
 export interface Series {
-  'CHL-01': Serie[];
-  'SPM-01': Serie[];
+  "CHL-01": Serie[];
+  "SPM-01": Serie[];
 }
 export interface Serie {
   timestamp: string;
@@ -19,8 +19,8 @@ export interface Serie {
   value: number;
   ingestion_time: string;
 }
-export enum TypeZonesSelection{
-  'No selected',
-  'Single zone',
-  'All selected',
+export enum TypeZonesSelection {
+  "No selected",
+  "Single zone",
+  "All selected",
 }

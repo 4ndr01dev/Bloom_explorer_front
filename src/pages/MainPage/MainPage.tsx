@@ -11,31 +11,34 @@ import AASelector from '../../Components/atoms/AASelector'
 import Banner from '../../Components/atoms/Banner'
 import UseFetchData from '../../Hooks/MainPage/UseFetchData'
 import {
+  Organizations,
   Serie,
   SeriesGrouped,
   TypeZonesSelection,
 } from '../../types/Organization'
-import { formatDate } from '../../utils/generalUse'
+// import { formatDate } from '../../utils/generalUse'
 import Switch from '../../Components/atoms/Switch'
 import { ChartData } from 'chart.js'
-import { dataParce } from './utils'
+import { dataParce, plotDataParce } from './utils'
 import UseFetchDataB from '../../Hooks/MainPage/UseFetchDataB'
 
-// import Button from '../Components/atoms/Button'
-
 const MainPage = () => {
-  const [organizationIndexSelected, setOrganizationIndexSelected] = useState(-1)
-  const [typeZoneSelection, setTypeZoneSelection] =
-    useState<TypeZonesSelection>(TypeZonesSelection['No selected'])
-  const [isAdasa, setIsAdasa] = useState<boolean>(true)
-  const [plotData, setPlotData] = useState<ChartData<'line'>>()
   const [zonesUrl] = useState<string>('./organization_and_zones_dataset.csv')
   const [apiQueryUri] = useState<string>(
     '/time_series/grouped_by_variable_organization/',
   )
-  const [apiQueryUriB, setApiQueryUriB] = useState<string>(
-    '',
-  )
+  const [apiQueryUriB, setApiQueryUriB] = useState<string>('')
+  const [firstSeriesData, setFirstSeriesData] = useState<Serie[] | undefined>()
+  const [secondarySeriesData, setSecondarySeriesData] = useState<
+    Serie[] | undefined
+  >()
+
+  const [organizationIndexSelected, setOrganizationIndexSelected] = useState(-1)
+  const [typeZoneSelection, setTypeZoneSelection] =
+    useState<TypeZonesSelection>(TypeZonesSelection['No selected'])
+  const [isAdasa, setIsAdasa] = useState<boolean>(true)
+  // const [plotData, setPlotData] = useState<ChartData<'line'>>()
+  const [plotDataB, setPlotDataB] = useState<ChartData<'line'>>()
 
   const {
     csvData: zonesData,
@@ -61,13 +64,13 @@ const MainPage = () => {
     data: groupedDataB,
     loading: groupedLoadingB,
     error: groupedErrorB,
-  } = UseFetchDataB<SeriesGrouped>(
+  } = UseFetchDataB<SeriesGrouped | Organizations>(
     apiQueryUriB,
     typeZoneSelection === TypeZonesSelection['Single zone']
-      ? zoneOption[organizationIndexSelected]?.label
+      ? zoneOption[organizationIndexSelected].label
       : undefined,
   )
-  console.log('DataB',{
+  console.log('DataB', {
     groupedDataB,
     groupedLoadingB,
     groupedErrorB,
@@ -79,33 +82,54 @@ const MainPage = () => {
     groupedError,
   })
 
-  const adasaCHSeries = groupedData?.organizations.adasa.values['CHL-01']
-  const auxSeriesFirstValue = isAdasa
-    ? groupedData?.organizations.adasa.values['CHL-01']
-    : groupedData?.organizations.gsinima.values['CHL-01']
-  const auxSeriesSecondValue = isAdasa
-    ? groupedData?.organizations.adasa.values['CHL-01']
-    : groupedData?.organizations.gsinima.values['SPM-01']
-    
-  dataParce({
-    typeSelection: typeZoneSelection,
-    organizationType:
-      typeZoneSelection === TypeZonesSelection['Single zone']
-        ? zoneOption[organizationIndexSelected].label
-        : undefined,
-  })
+  // const adasaCHSeries = groupedData?.organizations.adasa?.values['CHL-01']
 
+  useEffect(() => {
+    if (groupedLoadingB) return
+    console.log('Grouped data All selected ->', groupedDataB)
+    dataParce({
+      typeSelection: typeZoneSelection,
+      organizationType:
+        typeZoneSelection === TypeZonesSelection['Single zone']
+          ? zoneOption[organizationIndexSelected].label
+          : undefined,
+      groupData: groupedDataB,
+      isAdasa:
+        typeZoneSelection === TypeZonesSelection['All selected']
+          ? isAdasa
+          : undefined,
+      setFirstSeriesData,
+      setSecondarySeriesData,
+    })
+    plotDataParce({
+      typeSelection: typeZoneSelection,
+      organizationType:
+        typeZoneSelection === TypeZonesSelection['Single zone']
+          ? zoneOption[organizationIndexSelected].label
+          : undefined,
+      groupedData: groupedDataB,
+      setPlotData: setPlotDataB,
+    })
+  }, [groupedDataB, isAdasa])
+
+  console.log({ firstSeriesData, secondarySeriesData })
   console.log({ zonesData, zonesLoading, error })
 
   const handleOrganizationSelection = (index: number) => {
     switch (index) {
-      case 0 || 1:
+      case 0:
+        console.log('single organization ---> se selecciona ', index)
         setTypeZoneSelection(TypeZonesSelection['Single zone'])
         setApiQueryUriB('/time_series/grouped_by_organization/')
         break
-        case 2:
-          setTypeZoneSelection(TypeZonesSelection['All selected'])
-          setApiQueryUriB('/time_series/grouped_by_variable_organization/')
+      case 1:
+        console.log('single organization ---> se selecciona ', index)
+        setTypeZoneSelection(TypeZonesSelection['Single zone'])
+        setApiQueryUriB('/time_series/grouped_by_organization/')
+        break
+      case 2:
+        setTypeZoneSelection(TypeZonesSelection['All selected'])
+        setApiQueryUriB('/time_series/grouped_by_variable_organization/')
         break
       case -1:
         setTypeZoneSelection(TypeZonesSelection['No selected'])
@@ -116,61 +140,61 @@ const MainPage = () => {
     }
     setOrganizationIndexSelected(index)
   }
+  console.log('plot data',plotDataB)
+  // useEffect(() => {
+  //   const labels =
+  //     groupedData?.organizations.adasa?.values['CHL-01']?.map((entry: Serie) =>
+  //       formatDate(entry.ingestion_time),
+  //     ) || []
 
-  useEffect(() => {
-    const labels =
-      adasaCHSeries?.map((entry: Serie) => formatDate(entry.ingestion_time)) ||
-      []
-
-    setPlotData(
-      {
-        labels,
-        datasets: [
-          {
-            label: 'Value Over Time',
-            data:
-              groupedData?.organizations.adasa.values['CHL-01']?.map(
-                (entry) => entry.value,
-              ) || [],
-            fill: false,
-            borderColor: 'rgb(251, 115, 163)',
-            tension: 0.1,
-          },
-          {
-            label: 'Value Over Time',
-            data:
-              groupedData?.organizations.adasa.values['SPM-01']?.map(
-                (entry) => entry.value,
-              ) || [],
-            fill: false,
-            borderColor: 'rgb(246, 246, 246)',
-            tension: 0.1,
-          },
-          {
-            label: 'Value Over Time',
-            data:
-              groupedData?.organizations.gsinima.values['CHL-01']?.map(
-                (entry) => entry.value,
-              ) || [],
-            fill: false,
-            borderColor: 'rgb(66, 203, 236)',
-            tension: 0.1,
-          },
-          {
-            label: 'Value Over Time',
-            data:
-              groupedData?.organizations.gsinima.values['SPM-01']?.map(
-                (entry) => entry.value,
-              ) || [],
-            fill: false,
-            borderColor: 'rgb(248,14,98)',
-            tension: 0.1,
-          },
-        ],
-      } || {},
-    )
-  }, [groupedData])
-  useEffect(() => {}, [groupedData])
+  //   setPlotData(
+  //     {
+  //       labels,
+  //       datasets: [
+  //         {
+  //           label: 'Value Over Time',
+  //           data:
+  //             groupedData?.organizations.adasa?.values['CHL-01']?.map(
+  //               (entry) => entry.value,
+  //             ) || [],
+  //           fill: false,
+  //           borderColor: 'rgb(251, 115, 163)',
+  //           tension: 0.1,
+  //         },
+  //         {
+  //           label: 'Value Over Time',
+  //           data:
+  //             groupedData?.organizations.adasa?.values['SPM-01']?.map(
+  //               (entry) => entry.value,
+  //             ) || [],
+  //           fill: false,
+  //           borderColor: 'rgb(246, 246, 246)',
+  //           tension: 0.1,
+  //         },
+  //         {
+  //           label: 'Value Over Time',
+  //           data:
+  //             groupedData?.organizations.gsinima?.values['CHL-01']?.map(
+  //               (entry) => entry.value,
+  //             ) || [],
+  //           fill: false,
+  //           borderColor: 'rgb(66, 203, 236)',
+  //           tension: 0.1,
+  //         },
+  //         {
+  //           label: 'Value Over Time',
+  //           data:
+  //             groupedData?.organizations.gsinima?.values['SPM-01']?.map(
+  //               (entry) => entry.value,
+  //             ) || [],
+  //           fill: false,
+  //           borderColor: 'rgb(248,14,98)',
+  //           tension: 0.1,
+  //         },
+  //       ],
+  //     } || {},
+  //   )
+  // }, [groupedData])
   return (
     <>
       <main className="main_container">
@@ -225,15 +249,15 @@ const MainPage = () => {
                         ''
                       )}
                       <article className="organization_table">
-                        {auxSeriesFirstValue ? (
-                          <Table data={auxSeriesFirstValue} />
+                        {firstSeriesData ? (
+                          <Table data={firstSeriesData} />
                         ) : (
                           ''
                         )}{' '}
                       </article>
                       <article className="organization_table">
-                        {auxSeriesSecondValue ? (
-                          <Table data={auxSeriesSecondValue} />
+                        {firstSeriesData ? (
+                          <Table data={firstSeriesData} />
                         ) : (
                           ''
                         )}{' '}
@@ -265,14 +289,14 @@ const MainPage = () => {
                 <article className="organization_plot">
                   {organizationIndexSelected != -1 ? (
                     <>
-                      {plotData ? (
+                      {plotDataB ? (
                         <>
                           <Banner
                             type="info"
                             message="Zoom out with scroll to watch the plot details."
                           />
 
-                          <LineChart data={plotData} />
+                          <LineChart data={plotDataB} />
                         </>
                       ) : (
                         ''

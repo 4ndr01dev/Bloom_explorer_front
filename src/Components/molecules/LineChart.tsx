@@ -37,9 +37,15 @@ const LineChart: React.FC<BarChartProps> = ({ data, maxTicksLimit }) => {
     scales: {
       x: {
         ticks: {
+          color: '#FFFFFF',
           maxRotation: 90,
           autoSkip: true,
           maxTicksLimit: 50,
+        },
+      },
+      y: {
+        ticks: {
+          color: '#FFFFFF', 
         },
       },
     },
@@ -47,7 +53,7 @@ const LineChart: React.FC<BarChartProps> = ({ data, maxTicksLimit }) => {
       zoom: {
         zoom: {
           wheel: {
-            enabled: true, 
+            enabled: true,
           },
           mode: 'x',
         },
