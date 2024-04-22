@@ -1,7 +1,7 @@
 // export const fetchService = async <T>(
 export const fetchService = async (
   baseUrl: string,
-    queryParams: Record<string, string | number> = {},
+queryParams: Record<string, string | number>| undefined = {},
   options: RequestInit = {},
   // ): Promise<T> => {
 ) => {

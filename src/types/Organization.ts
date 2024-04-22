@@ -1,26 +1,10 @@
-export interface SeriesGrouped {
-  organizations: Organizations;
-}
 export interface Organizations {
-  adasa?: Values;
-  gsinima?: Values;
+  organizations: Organization[];
 }
-export interface Values {
-  values: Series;
-}
-export interface Series {
-  "CHL-01": Serie[];
-  "SPM-01": Serie[];
-}
-export interface Serie {
-  timestamp: string;
-  variable: string;
+
+export interface Organization {
   organization: string;
-  value: number;
-  ingestion_time: string;
-}
-export enum TypeZonesSelection {
-  "No selected",
-  "Single zone",
-  "All selected",
+  zone_id: number;
+  zone: string;
+  polygon_decoded: string;
 }

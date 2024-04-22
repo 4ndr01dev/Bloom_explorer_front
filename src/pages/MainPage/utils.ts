@@ -1,16 +1,16 @@
 import { ChartData } from "chart.js";
 import {
-  Organizations,
+  SeriesOrganizations,
   Serie,
   SeriesGrouped,
   TypeZonesSelection,
-} from "../../types/Organization";
+} from "../../types/SeriesGroup";
 import { formatDate } from "../../utils/generalUse";
 
 interface GetDataParceProps {
   typeSelection: TypeZonesSelection;
   organizationType?: any;
-  groupData?: SeriesGrouped | Organizations;
+  groupData?: SeriesGrouped | SeriesOrganizations;
   isAdasa?: boolean;
   setFirstSeriesData: (data: Serie[] | undefined) => void;
   setSecondarySeriesData: (data: Serie[] | undefined) => void;
@@ -45,7 +45,7 @@ export const dataParce = (
     },
     [TypeZonesSelection["Single zone"]]: () => {
       if (!organizationType) return;
-      groupData = groupData as Organizations;
+      groupData = groupData as SeriesOrganizations;
       auxSeriesFirstValue = organizationType === "adasa"
         ? groupData?.adasa?.values["CHL-01"]
         : groupData?.gsinima?.values["CHL-01"];
@@ -62,7 +62,7 @@ export const dataParce = (
 interface GetPlotDataParceProps {
   typeSelection: TypeZonesSelection;
   organizationType?: any;
-  groupedData?: SeriesGrouped | Organizations;
+  groupedData?: SeriesGrouped | SeriesOrganizations;
   // isAdasa?: boolean;
   setPlotData: (data:ChartData<'line'>) => void;
   // setSecondarySeriesData: (data: Serie[] | undefined) => void;
@@ -86,7 +86,7 @@ export const plotDataParce = (
 
   const getPlotDataMapper = {
     [TypeZonesSelection["Single zone"]]: () => {
-      groupedData = groupedData as Organizations;
+      groupedData = groupedData as SeriesOrganizations;
       const organization = organizationType === "adasa"
         ? groupedData?.adasa
         : groupedData?.gsinima;
