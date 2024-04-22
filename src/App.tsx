@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.scss'
 
-import MainPage from './pages/MainPage'
+import MainPage from './pages/MainPage/MainPage'
 import Navbar from './Components/molecules/Navbar'
 function App() {
   return (

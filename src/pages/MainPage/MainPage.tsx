@@ -3,28 +3,38 @@ import './MainPage.scss'
 
 // import { FiMap } from 'react-icons/fi'
 
-import UseLoadCsv from '../Hooks/MainPage/UseLoadCsv'
-import CardBlanc from '../Components/atoms/CardBlanc'
-import LineChart from '../Components/molecules/LineChart'
-import Table from '../Components/atoms/Table'
-import AASelector from '../Components/atoms/AASelector'
-import Banner from '../Components/atoms/Banner'
-import UseFetchData from '../Hooks/MainPage/UseFetchData'
-import { Serie, SeriesGrouped } from '../types/Organization'
-import { formatDate } from '../utils/generalUse'
-import Switch from '../Components/atoms/Switch'
+import UseLoadCsv from '../../Hooks/MainPage/UseLoadCsv'
+import CardBlanc from '../../Components/atoms/CardBlanc'
+import LineChart from '../../Components/molecules/LineChart'
+import Table from '../../Components/atoms/Table'
+import AASelector from '../../Components/atoms/AASelector'
+import Banner from '../../Components/atoms/Banner'
+import UseFetchData from '../../Hooks/MainPage/UseFetchData'
+import {
+  Serie,
+  SeriesGrouped,
+  TypeZonesSelection,
+} from '../../types/Organization'
+import { formatDate } from '../../utils/generalUse'
+import Switch from '../../Components/atoms/Switch'
 import { ChartData } from 'chart.js'
+import { dataParce } from './utils'
+import UseFetchDataB from '../../Hooks/MainPage/UseFetchDataB'
 
 // import Button from '../Components/atoms/Button'
 
 const MainPage = () => {
   const [organizationIndexSelected, setOrganizationIndexSelected] = useState(-1)
+  const [typeZoneSelection, setTypeZoneSelection] =
+    useState<TypeZonesSelection>(TypeZonesSelection['No selected'])
   const [isAdasa, setIsAdasa] = useState<boolean>(true)
   const [plotData, setPlotData] = useState<ChartData<'line'>>()
   const [zonesUrl] = useState<string>('./organization_and_zones_dataset.csv')
-  const [timeSeriesUrl] = useState<string>('./timeseries_dataset.csv')
   const [apiQueryUri] = useState<string>(
     '/time_series/grouped_by_variable_organization/',
+  )
+  const [apiQueryUriB, setApiQueryUriB] = useState<string>(
+    '',
   )
 
   const {
@@ -33,38 +43,6 @@ const MainPage = () => {
     error,
   } = UseLoadCsv(zonesUrl)
 
-  const {
-    data: groupedData,
-    loading: groupedLoading,
-    error: groupedError,
-  } = UseFetchData<SeriesGrouped>(apiQueryUri)
-
-  console.log({
-    groupedData,
-    groupedLoading,
-    groupedError,
-  })
-  const adasaCHSeries = groupedData?.organizations.adasa.values['CHL-01']
-  const auxSeriesFirstValue = isAdasa
-    ? groupedData?.organizations.adasa.values['CHL-01']
-    : groupedData?.organizations.gsinima.values['CHL-01']
-  const auxSeriesSecondValue = isAdasa
-    ? groupedData?.organizations.adasa.values['CHL-01']
-    : groupedData?.organizations.gsinima.values['SPM-01']
-
-  const {
-    csvData: timeSeriesData,
-    loading: timeSeriesLoading,
-    error: timeSeriesError,
-  } = UseLoadCsv(timeSeriesUrl)
-
-  console.log({ zonesData, zonesLoading, error })
-  console.log({ timeSeriesData, timeSeriesLoading, timeSeriesError })
-
-  const handleOrganizationSelection = (index: number) => {
-    setOrganizationIndexSelected(index)
-  }
-
   const zoneOption = [
     ...zonesData.map((zone, i) => {
       return { value: i, label: zone.organization }
@@ -72,6 +50,73 @@ const MainPage = () => {
     { value: zonesData.length, label: 'All zones' },
     { value: -1, label: 'No zones selected' },
   ]
+
+  const {
+    data: groupedData,
+    loading: groupedLoading,
+    error: groupedError,
+  } = UseFetchData<SeriesGrouped>(apiQueryUri)
+
+  const {
+    data: groupedDataB,
+    loading: groupedLoadingB,
+    error: groupedErrorB,
+  } = UseFetchDataB<SeriesGrouped>(
+    apiQueryUriB,
+    typeZoneSelection === TypeZonesSelection['Single zone']
+      ? zoneOption[organizationIndexSelected]?.label
+      : undefined,
+  )
+  console.log('DataB',{
+    groupedDataB,
+    groupedLoadingB,
+    groupedErrorB,
+  })
+
+  console.log({
+    groupedData,
+    groupedLoading,
+    groupedError,
+  })
+
+  const adasaCHSeries = groupedData?.organizations.adasa.values['CHL-01']
+  const auxSeriesFirstValue = isAdasa
+    ? groupedData?.organizations.adasa.values['CHL-01']
+    : groupedData?.organizations.gsinima.values['CHL-01']
+  const auxSeriesSecondValue = isAdasa
+    ? groupedData?.organizations.adasa.values['CHL-01']
+    : groupedData?.organizations.gsinima.values['SPM-01']
+    
+  dataParce({
+    typeSelection: typeZoneSelection,
+    organizationType:
+      typeZoneSelection === TypeZonesSelection['Single zone']
+        ? zoneOption[organizationIndexSelected].label
+        : undefined,
+  })
+
+  console.log({ zonesData, zonesLoading, error })
+
+  const handleOrganizationSelection = (index: number) => {
+    switch (index) {
+      case 0 || 1:
+        setTypeZoneSelection(TypeZonesSelection['Single zone'])
+        setApiQueryUriB('/time_series/grouped_by_organization/')
+        break
+        case 2:
+          setTypeZoneSelection(TypeZonesSelection['All selected'])
+          setApiQueryUriB('/time_series/grouped_by_variable_organization/')
+        break
+      case -1:
+        setTypeZoneSelection(TypeZonesSelection['No selected'])
+        break
+
+      default:
+        break
+    }
+    setOrganizationIndexSelected(index)
+  }
+
   useEffect(() => {
     const labels =
       adasaCHSeries?.map((entry: Serie) => formatDate(entry.ingestion_time)) ||

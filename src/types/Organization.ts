@@ -19,3 +19,8 @@ export interface Serie {
   value: number;
   ingestion_time: string;
 }
+export enum TypeZonesSelection{
+  'No selected',
+  'Single zone',
+  'All selected',
+}
