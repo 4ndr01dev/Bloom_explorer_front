@@ -1,6 +1,8 @@
 import React from 'react'
 import { Line } from 'react-chartjs-2'
 import type { ChartData, ChartOptions } from 'chart.js'
+import zoomPlugin from 'chartjs-plugin-zoom'
+
 
 import {
   Chart as ChartJS,
@@ -12,9 +14,9 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js'
-import 'chartjs-plugin-zoom'
 
 ChartJS.register(
+  zoomPlugin,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -35,27 +37,17 @@ const LineChart: React.FC<BarChartProps> = ({ data, maxTicksLimit }) => {
     scales: {
       x: {
         ticks: {
-          // maxRotation: 90,
+          maxRotation: 90,
           autoSkip: true,
-          // maxTicksLimit: 50,
+          maxTicksLimit: 50,
         },
       },
     },
     plugins: {
-      tooltip: {
-        mode: 'index',
-        intersect: false,
-      },
-      legend: {
-        display: true,
-      },
       zoom: {
         zoom: {
           wheel: {
-            enabled: true,
-          },
-          pinch: {
-            enabled: true,
+            enabled: true, 
           },
           mode: 'x',
         },
@@ -66,7 +58,7 @@ const LineChart: React.FC<BarChartProps> = ({ data, maxTicksLimit }) => {
       },
     },
   }
-  return <Line data={data} options={options} />
+  return <Line data={data} options={options} height={'250%'} />
 }
 
 export default LineChart

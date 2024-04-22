@@ -7,8 +7,10 @@ const UseLoadCsv = (url: string) => {
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
   const fetchData = useCallback(async () => {
+    console.log('en el fetch Data Local load')
+
     if (!url) return
-    if(csvData.length){
+    if (csvData.length) {
       console.log('hola')
     }
     setLoading(true)

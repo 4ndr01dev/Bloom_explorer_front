@@ -1,0 +1,46 @@
+@import '/src/index.scss';
+@import '/src/styles/mixins/mixins.scss';
+
+.switchSection {
+    margin-right: 2vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 15%;
+    min-width: 200px;
+    justify-content: space-between;
+    align-items: center;
+
+    .switch {
+        min-width: 60px;
+        width: 60px;
+        height: 35px;
+        background: $secondary-color;
+        border-radius: 7px;
+        position: relative;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        align-items: center;
+
+        &.checked {
+            background: $secondary-color;
+        }
+
+        // transition: background 0.3s;
+        .switch-handle {
+            border-radius: 7px;
+            position: absolute;
+            width: 48%;
+            height: 90%;
+            background: white;
+            top: 2px;
+            left: 2.5px;
+            transition: left 0.3s;
+        }
+
+        &.checked .switch-handle {
+            // when newSwitch has checked attribute select switch-handle
+            left: 28px;
+        }
+    }
+}
