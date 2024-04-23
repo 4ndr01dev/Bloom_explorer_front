@@ -7,9 +7,9 @@ interface cardProps {
 }
 const CardBlanc = (props:cardProps) => {
   return (
-    <div className='Card'>
+    <section className='Card'>
       {props.children}
-    </div>
+    </section>
   )
 }
 

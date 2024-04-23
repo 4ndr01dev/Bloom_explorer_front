@@ -1,0 +1,30 @@
+@import '/src/index.scss';
+
+.banner {
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    margin: 1rem 0;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.banner-info {
+    color: lighten($primary-color, 30%);
+    background-color: rgba(lighten($primary-color, 10%), 0.3);
+    border: 1px solid darken($primary-color, 15%);
+}
+
+.banner-warning {
+    color: lighten(#ffc107, 30%);
+    background-color: rgba(lighten(#ffc107, 10%), 0.3);
+    border: 1px solid darken(#ffc107, 15%);
+}
+
+.banner-error {
+    background-color: #dc3545;
+}
+
+.banner-success {
+    background-color: #28a745;
+}

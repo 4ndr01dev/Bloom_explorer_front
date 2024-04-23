@@ -1,0 +1,119 @@
+@import '/src/index.scss';
+
+.main_container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 5rem;
+    justify-content: center;
+    align-items: center;
+
+    .main_header {
+        width: 95%;
+        height: 7%;
+        padding: 0rem 1.5rem;
+        display: flex;
+        
+        .main_header_card_section {
+            padding: 0rem 1rem;
+            justify-content: space-between;
+            align-items: center;
+            display: flex;
+            width: 100%;
+        }
+
+    }
+
+    .main_section {
+        padding: 0rem 0.5rem;
+        width: 95%;
+        height: 93%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .main_page_container {
+
+            padding: 1rem 0rem;
+            flex: 2 1 10rem;
+
+            .main_page_section {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                width: 100%;
+
+                .main_page_title {
+                    padding: 0.5rem 1rem;
+                    justify-content: space-between;
+                    align-items: center;
+                    display: flex;
+                    flex-direction: row;
+                    flex: 1 1 5%;
+                }
+
+                .description {
+                    display: flex;
+                    padding: 0.5rem 1rem;
+                    flex: 1 1 5%;
+                }
+
+                .organization_tables {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    padding: 1rem 1.5rem;
+                    display: flex;
+                    flex: 1 1 85%;
+
+                    .organization_table {
+                        display: flex;
+                        overflow: auto;
+                        max-height: 16rem;
+                        width: 100%;
+                        padding: 1rem 1rem;
+                        justify-content: center;
+                        flex: 1 1;
+                    }
+                }
+            }
+        }
+
+        .main_page_aside {
+            padding: 1rem 0rem;
+            flex: 1 1 12rem;
+
+            .organization_section {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+
+                .description {
+                    display: flex;
+                    padding: 0.5rem 1rem;
+                    flex: 1 1 10%;
+                }
+
+                .organization_title {
+                    padding: 0.5rem 1rem;
+                    justify-content: space-between;
+                    align-items: center;
+                    display: flex;
+                    flex-direction: row;
+                    flex: 1 1 5%;
+                }
+
+
+                .organization_plot {
+                    align-items: center;
+                    padding: 1rem 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1 1 85%;
+                }
+            }
+        }
+    }
+}

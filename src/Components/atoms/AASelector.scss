@@ -1,0 +1,33 @@
+@import '/src/index.scss';
+
+.selector-container {
+    display: flex;
+    padding: 0.5rem;
+    margin: 1rem 0;
+    border-radius: 0.5rem;
+    background: $secondary-background-color;
+    color: $font-color;
+    width: 40%;
+    max-width: 50rem;
+    min-width: 10rem;
+
+    select.custom-select {
+        width: 100%;
+        border: none;
+        border-radius: 0.4rem;
+        background: $secondary-background-color;
+        color: $font-color;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+
+        &:hover {
+            outline: none;
+            border-color: $secondary-color;
+            box-shadow: 0 0 0 0.2rem $secondary-color;
+        }
+
+        option {
+            padding: 0.5rem;
+        }
+    }
+}

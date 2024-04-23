@@ -1,0 +1,11 @@
+@import '/src/index.scss';
+
+.social-media-icons a {
+    margin-right: 10px;
+    color: $font-color;
+    font-size: 24px;
+}
+
+.social-media-icons a:hover {
+    color: $secondary-color;
+}

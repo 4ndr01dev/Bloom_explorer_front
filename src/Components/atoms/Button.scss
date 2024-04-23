@@ -1,0 +1,52 @@
+@import '/src/index.scss';
+
+.card_component_container {
+
+    display: flex;
+    flex-direction: row;
+    background-color: $gradient-color;
+    color: black;
+    border-radius: 15px;
+    max-height: 2rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        background-color: darken($background-secondary-color, 10%);
+        transform: scale(1.01);
+    }
+
+    &.modal_card {
+        overflow-y: auto;
+        background-color: $gradient-color;
+        ;
+    }
+
+    &.clickableCard {
+        position: relative;
+        z-index: 1;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            z-index: -1;
+            width: calc(100% + 1px);
+            height: calc(100% + 1px);
+            border-radius: 7px;
+            background: $gradient-color;
+            filter: blur(0px);
+            transition: opacity 0.3s ease, transform 0.5s ease;
+            opacity: 0;
+        }
+
+        &:hover::after {
+            transform: scale(1.05);
+            opacity: 30%;
+        }
+    }
+}
