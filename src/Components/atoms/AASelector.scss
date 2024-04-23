@@ -1,17 +1,18 @@
 @import '/src/index.scss';
 
 .selector-container {
+    display: flex;
     padding: 0.5rem;
     margin: 1rem 0;
-
     border-radius: 0.5rem;
     background: $secondary-background-color;
     color: $font-color;
-    width: 100%;
+    width: 40%;
+    max-width: 50rem;
+    min-width: 10rem;
 
     select.custom-select {
         width: 100%;
-        // padding: 0.5rem 1rem;
         border: none;
         border-radius: 0.4rem;
         background: $secondary-background-color;

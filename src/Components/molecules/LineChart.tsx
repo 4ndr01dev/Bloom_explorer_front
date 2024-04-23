@@ -31,8 +31,7 @@ interface BarChartProps {
   maxTicksLimit?: number
 }
 
-const LineChart: React.FC<BarChartProps> = ({ data, maxTicksLimit }) => {
-  console.log({ maxTicksLimit })
+const LineChart: React.FC<BarChartProps> = ({ data }) => {
   const options: ChartOptions<'line'> = {
     scales: {
       x: {

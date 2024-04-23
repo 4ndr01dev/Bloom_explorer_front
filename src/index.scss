@@ -33,26 +33,18 @@ body {
 
   ::-webkit-scrollbar {
     width: 10px;
-    /* Ancho de la barra de desplazamiento */
   }
 
-  /* Estilo para la barra de desplazamiento (el riel) */
   ::-webkit-scrollbar-track {
     background: $secondary-background-color;
-    /* Color del fondo del riel */
-    // Agrega aquí más estilos si es necesario
   }
 
-  /* Estilo para el control de desplazamiento (la parte que se mueve) */
   ::-webkit-scrollbar-thumb {
     background: #888;
-    /* Color del control de desplazamiento */
     border-radius: 5px;
-    /* Bordes redondeados para el control de desplazamiento */
 
     &:hover {
       background: #555;
-      /* Color del control de desplazamiento al pasar el ratón */
     }
   }
 }

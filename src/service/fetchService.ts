@@ -16,7 +16,6 @@ queryParams: Record<string, string | number>| undefined = {},
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    //   return await response.json() as T;
       return await response.json() ;
     } catch (error) {
       throw new Error(`Network error: ${error instanceof Error ? error.message : 'Unknown error'}`);

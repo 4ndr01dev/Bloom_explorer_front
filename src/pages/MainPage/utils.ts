@@ -63,23 +63,16 @@ interface GetPlotDataParceProps {
   typeSelection: TypeZonesSelection;
   organizationType?: any;
   groupedData?: SeriesGrouped | SeriesOrganizations;
-  // isAdasa?: boolean;
   setPlotData: (data:ChartData<'line'>) => void;
-  // setSecondarySeriesData: (data: Serie[] | undefined) => void;
 }
 export const plotDataParce = (
   {
     typeSelection,
     organizationType,
     groupedData,
-    //   isAdasa,
       setPlotData,
-    //   setSecondarySeriesData,
   }: GetPlotDataParceProps,
 ) => {
-  console.log("plotDataParce");
-  console.log("plotDataParce -->", { groupedData });
-  console.log("plotDataParce -->", { typeSelection });
 
   let labels: any = [];
   let plotData: any = {};
@@ -116,10 +109,8 @@ export const plotDataParce = (
           },
         ],
       };
-      console.log("No selected");
     },
     [TypeZonesSelection["All selected"]]: () => {
-      console.log("plotDataParce --> all selected");
       groupedData = groupedData as SeriesGrouped;
       labels = groupedData?.organizations.adasa?.values["CHL-01"]?.map((
         entry: Serie,
@@ -165,13 +156,11 @@ export const plotDataParce = (
           },
         ],
       };
-      console.log("No selected");
     },
     [TypeZonesSelection["No selected"]]: () => {
       console.log("No selected");
     },
   };
   getPlotDataMapper[typeSelection]();
-  console.log({ plotData });
   setPlotData(plotData)
 };

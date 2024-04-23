@@ -26,7 +26,6 @@
             background: $secondary-color;
         }
 
-        // transition: background 0.3s;
         .switch-handle {
             border-radius: 7px;
             position: absolute;
@@ -39,7 +38,6 @@
         }
 
         &.checked .switch-handle {
-            // when newSwitch has checked attribute select switch-handle
             left: 28px;
         }
     }

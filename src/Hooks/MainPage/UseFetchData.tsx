@@ -1,34 +1,37 @@
 import { useState, useEffect, useCallback } from 'react'
+import { fetchService } from '../../service/fetchService'
 
-
-const UseFetchData = <T,>(uri: string) => {
+const UseFetchDataB = <T,>(uri: string, organizationType?: string) => {
   const [data, setData] = useState<T>()
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
+
   const fetchData = useCallback(async () => {
-    console.log('en el fetch Data')
-    if (!uri || data) return
+    if (!uri) return
     setLoading(true)
     try {
-      const url = process.env.REACT_APP_DEV_API_URL + uri
-      const response = await fetch(url, { method: 'GET' })
-      const body = await response.json()
-
-      setData(body)
+      const queryParams = organizationType?{
+        organization_name: organizationType,
+      }: undefined
+      const dataFromService = await fetchService(
+        uri,
+        queryParams,
+        { method: 'GET' },
+      )
+      setData(dataFromService)
+      setLoading(false)
     } catch (err) {
       if (err instanceof Error) {
         setError(err)
       }
       setLoading(false)
     }
-  }, [uri])
+  }, [uri, organizationType])
   useEffect(() => {
-    if (!uri || data) return
-    console.log(uri)
+    if (!uri) return
     fetchData()
-  }, [uri, fetchData, data])
-
+  }, [uri, organizationType])
   return { data, loading, error }
 }
 
-export default UseFetchData
+export default UseFetchDataB

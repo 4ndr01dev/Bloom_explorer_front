@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import './MainPage.scss'
-
-// import { FiMap } from 'react-icons/fi'
-
-import CardBlanc from '../../Components/atoms/CardBlanc'
-import LineChart from '../../Components/molecules/LineChart'
-import Table from '../../Components/atoms/Table'
-import AASelector from '../../Components/atoms/AASelector'
-import Banner from '../../Components/atoms/Banner'
+import { ChartData } from 'chart.js'
 import {
   SeriesOrganizations,
   Serie,
   SeriesGrouped,
   TypeZonesSelection,
 } from '../../types/SeriesGroup'
-import Switch from '../../Components/atoms/Switch'
-import { ChartData } from 'chart.js'
-import { dataParce, plotDataParce } from './utils'
-import UseFetchDataB from '../../Hooks/MainPage/UseFetchDataB'
 import { Organizations } from '../../types/Organization'
+import UseFetchDataB from '../../Hooks/MainPage/UseFetchData'
+
+import CardBlanc from '../../Components/atoms/CardBlanc'
+import LineChart from '../../Components/molecules/LineChart'
+import Table from '../../Components/atoms/Table'
+import AASelector from '../../Components/atoms/AASelector'
+import Banner from '../../Components/atoms/Banner'
+import Switch from '../../Components/atoms/Switch'
+
+import { dataParce, plotDataParce } from './utils'
 
 const MainPage = () => {
   const [apiQueryUriB, setApiQueryUriB] = useState<string>('')
@@ -34,12 +33,8 @@ const MainPage = () => {
   const [isAdasa, setIsAdasa] = useState<boolean>(true)
   const [plotDataB, setPlotDataB] = useState<ChartData<'line'>>()
 
-
-  const {
-    data: organizationData,
-    loading: organizationDataLoding,
-    // error,
-  } = UseFetchDataB<Organizations>(organizationQuery)
+  const { data: organizationData, loading: organizationDataLoding } =
+    UseFetchDataB<Organizations>(organizationQuery)
   const organizationOptions = organizationData?.organizations
     ? [
         ...organizationData.organizations.map((zone, i) => {
@@ -49,33 +44,25 @@ const MainPage = () => {
         { value: -1, label: 'No zones selected' },
       ]
     : []
-    
-  const {
-    data: groupedDataB,
-    loading: groupedLoadingB,
-    error: groupedErrorB,
-  } = UseFetchDataB<SeriesGrouped | SeriesOrganizations>(
+
+  const { data: groupedData, loading: groupedLoading } = UseFetchDataB<
+    SeriesGrouped | SeriesOrganizations
+  >(
     apiQueryUriB,
     typeZoneSelection === TypeZonesSelection['Single zone']
       ? organizationOptions[organizationIndexSelected].label
       : undefined,
   )
-  console.log('DataB', {
-    groupedDataB,
-    groupedLoadingB,
-    groupedErrorB,
-  })
 
   useEffect(() => {
-    if (groupedLoadingB) return
-    console.log('Grouped data All selected ->', groupedDataB)
+    if (groupedLoading) return
     dataParce({
       typeSelection: typeZoneSelection,
       organizationType:
         typeZoneSelection === TypeZonesSelection['Single zone']
           ? organizationOptions[organizationIndexSelected].label
           : undefined,
-      groupData: groupedDataB,
+      groupData: groupedData,
       isAdasa:
         typeZoneSelection === TypeZonesSelection['All selected']
           ? isAdasa
@@ -89,10 +76,10 @@ const MainPage = () => {
         typeZoneSelection === TypeZonesSelection['Single zone']
           ? organizationOptions[organizationIndexSelected].label
           : undefined,
-      groupedData: groupedDataB,
+      groupedData: groupedData,
       setPlotData: setPlotDataB,
     })
-  }, [groupedDataB, isAdasa])
+  }, [groupedData, isAdasa])
 
   const handleOrganizationSelection = (index: number) => {
     switch (index) {
@@ -132,11 +119,13 @@ const MainPage = () => {
                   onChange={handleOrganizationSelection}
                 />
               )}
+              <p>
+            Selected organization:{' '}
+            {organizationIndexSelected >= 0
+              ? organizationOptions[organizationIndexSelected].label
+              : 'No zone selected '}
+              </p>
             </section>
-            {/* <Button>
-              <FiMap />
-              View map
-            </Button> */}
           </CardBlanc>
         </section>
         <section className="main_section">
@@ -150,10 +139,10 @@ const MainPage = () => {
                     : 'No zone selected '}
                 </header>
                 <section className="description">
-                  <p>
+                  <p className="color_text">
                     {' '}
-                    In this section you can find the data grouped by variable.
-                    Them owns at selected zone.{' '}
+                    In this section, you can find data grouped by variable for
+                    the selected zone.{' '}
                   </p>
                 </section>
                 <article className="organization_tables">
@@ -180,6 +169,7 @@ const MainPage = () => {
                       <article className="organization_table">
                         {secondarySeriesData ? (
                           <Table data={secondarySeriesData} />
+
                         ) : (
                           ''
                         )}{' '}
@@ -202,10 +192,10 @@ const MainPage = () => {
                   <h3>Data chart</h3>
                 </header>
                 <section className="description">
-                  <p>
+                  <p className="color_text">
                     {' '}
-                    In this section you can find the line chat grouped by
-                    variable. Them owns at selected zone.{' '}
+                    In this section, you can find the line chart grouped by
+                    variable for the selected zone.{' '}
                   </p>
                 </section>
                 <article className="organization_plot">
